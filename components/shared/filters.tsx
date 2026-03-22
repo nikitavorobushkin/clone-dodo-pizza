@@ -13,6 +13,8 @@ import {
   useIngredients,
   useQueryFilters,
 } from '@/hooks';
+import { formatPizzaType } from '@/lib/format-pizza-type';
+import { PizzaType } from '@prisma/client';
 
 interface Props {
   className?: string;
@@ -68,12 +70,12 @@ export const Filters: React.FC<Props> = (props) => {
         name="types"
         items={[
           {
-            text: 'Тонкое',
-            value: 1,
+            text: formatPizzaType(PizzaType.THIN),
+            value: PizzaType.THIN,
           },
           {
-            text: 'Традиционное',
-            value: 2,
+            text: formatPizzaType(PizzaType.TRADITIONAL),
+            value: PizzaType.TRADITIONAL,
           },
         ]}
         selected={filters.selectedPizzaTypes}

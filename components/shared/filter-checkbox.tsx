@@ -2,18 +2,18 @@ import React from 'react';
 import { Checkbox } from '../ui';
 import { CheckedState } from '@radix-ui/react-checkbox';
 
-export interface FilterCheckboxProps {
+export type FilterCheckboxProps<ValueType> = {
   text: string;
-  value: number;
+  value: ValueType;
   endAdornment?: React.ReactNode;
   onCheckedChange?: (checked: CheckedState) => void;
   checked?: boolean;
   name?: string;
-}
+};
 
-export const FilterCheckbox: React.FC<
-  FilterCheckboxProps
-> = (props) => {
+export const FilterCheckbox = <ValueType,>(
+  props: FilterCheckboxProps<ValueType>,
+) => {
   const {
     text,
     value,
@@ -28,7 +28,7 @@ export const FilterCheckbox: React.FC<
       <Checkbox
         onCheckedChange={onCheckedChange}
         checked={checked}
-        value={value}
+        value={String(value)}
         className="size-6 cursor-pointer rounded-[8px]"
         id={`checkbox-${name}-${String(value)}`}
       />

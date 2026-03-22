@@ -1,3 +1,5 @@
+'use client';
+
 import { Filters } from '@/hooks/use-filters';
 import { useDebounce } from 'react-use';
 import qs from 'qs';

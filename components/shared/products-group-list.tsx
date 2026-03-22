@@ -6,12 +6,17 @@ import { Title, ProductCard } from '@/components/shared';
 import { useIntersection } from 'react-use';
 import { slugify } from 'transliteration';
 import { useCategoryStore } from '@/store/category';
-import { Ingredient, Prisma } from '@prisma/client';
+import { IngredientRole, Prisma } from '@prisma/client';
+import { capitalize } from '@/helpers/capitalize';
 
 export type ProductWithDetails = Prisma.ProductGetPayload<{
   include: {
     items: true;
-    ingredients: true;
+    productIngredients: {
+      include: {
+        ingredient: true;
+      };
+    };
   };
 }>;
 
@@ -76,16 +81,32 @@ export const ProductsGroupList: React.FC<Props> = (
         )}
       >
         {items.map((product) => {
+          const previewImageUrl =
+            product.items.find((i) => i.value === 40)
+              ?.imageUrl || product.items[0].imageUrl;
+
+          const ingredients = product.productIngredients
+            .filter(
+              (item) =>
+                item.role === IngredientRole.BASE ||
+                item.role === IngredientRole.OPTIONAL,
+            )
+            .map((item) =>
+              item.ingredient.name.toLowerCase(),
+            );
+
+          const description = ingredients.length
+            ? `${capitalize(ingredients.join(', '))}.`
+            : product.description || '';
+
           return (
             <ProductCard
               key={product.id}
               id={product.id}
               title={product.name}
-              ingredients={product.ingredients.map(
-                (ingredient: Ingredient) => ingredient.name,
-              )}
+              description={description}
               price={product.items[0].price}
-              imageUrl={product.imageUrl}
+              imageUrl={previewImageUrl}
             />
           );
         })}

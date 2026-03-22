@@ -40,11 +40,11 @@ model Product {
   id Int @id @default(autoincrement())
 
   name     String
-  imageUrl String
+  description String?
 
-  ingredients Ingredient[]
+  productIngredients ProductIngredient[]
 
-  items ProductItem[] // variants
+  items ProductItem[]
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
@@ -57,13 +57,22 @@ model ProductItem {
   id Int @id @default(autoincrement())
 
   price     Int
-  size      Int?
-  pizzaType Int?
+  imageUrl  String
+
+  value Int
+  unit  ProductUnit
+  weight Int?
+
+  pizzaType PizzaType?
+
+  isAvailable Boolean @default(true)
 
   product   Product @relation(fields: [productId], references: [id])
   productId Int
 
-  cartItems CartItem?
+  cartItems CartItem[]
+
+  @@unique([productId, value, pizzaType])
 }
 
 model Ingredient {
@@ -73,11 +82,28 @@ model Ingredient {
   price    Int
   imageUrl String
 
-  products Product[]
-  items    CartItem[]
+  productIngredients ProductIngredient[]
+  cartItemIngredients CartItemIngredient[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ProductIngredient {
+  id Int @id @default(autoincrement())
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+
+  role IngredientRole
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, ingredientId])
 }
 
 model Cart {
@@ -103,14 +129,32 @@ model CartItem {
   cartId Int
 
   productItem   ProductItem @relation(fields: [productItemId], references: [id])
-  productItemId Int         @unique
+  productItemId Int
 
   quantity Int
 
-  ingredients Ingredient[]
+  cartItemIngredients CartItemIngredient[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model CartItemIngredient {
+  id Int @id @default(autoincrement())
+
+  cartItem   CartItem @relation(fields: [cartItemId], references: [id])
+  cartItemId Int
+
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+
+  role IngredientRole
+  added Boolean?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartItemId, ingredientId])
 }
 
 model Order {
@@ -165,4 +209,16 @@ enum IngredientRole {
   BASE
   OPTIONAL
   EXTRA
+}
+
+enum ProductUnit {
+  CM
+  ML
+  G
+  PCS
+}
+
+enum PizzaType {
+  THIN
+  TRADITIONAL
 }

@@ -1,10 +1,13 @@
+'use client';
+
 import React from 'react';
 import { useSet } from 'react-use';
 import { useSearchParams } from 'next/navigation';
+import { PizzaType } from '@prisma/client';
 
 export interface ReturnProps extends Filters {
   toggleIngredients: (id: number) => void;
-  togglePizzaTypes: (id: number) => void;
+  togglePizzaTypes: (type: PizzaType) => void;
   toggleSizes: (id: number) => void;
   setPrices: React.Dispatch<
     React.SetStateAction<PricesProps>
@@ -18,7 +21,7 @@ interface PricesProps {
 
 export interface Filters {
   selectedIngredients: Set<number>;
-  selectedPizzaTypes: Set<number>;
+  selectedPizzaTypes: Set<PizzaType>;
   selectedPizzaSizes: Set<number>;
   prices: PricesProps;
 }
@@ -47,9 +50,10 @@ export const useFilters = (): ReturnProps => {
   );
   const [selectedPizzaTypes, { toggle: togglePizzaTypes }] =
     useSet(
-      new Set<number>(
-        searchParams.get('types')?.split(',').map(Number) ??
-          [],
+      new Set<PizzaType>(
+        (searchParams
+          .get('types')
+          ?.split(',') as PizzaType[]) ?? [],
       ),
     );
   const [selectedPizzaSizes, { toggle: toggleSizes }] =

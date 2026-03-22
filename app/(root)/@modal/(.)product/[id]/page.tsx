@@ -16,7 +16,11 @@ export default async function ModalProductPage({
       id: Number(id),
     },
     include: {
-      ingredients: true,
+      productIngredients: {
+        include: {
+          ingredient: true,
+        },
+      },
       items: true,
     },
   });

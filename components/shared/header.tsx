@@ -5,14 +5,11 @@ import Link from 'next/link';
 import {
   Container,
   SearchInput,
+  CartButton,
 } from '@/components/shared';
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
-import {
-  ArrowRight,
-  ShoppingCart,
-  User,
-} from 'lucide-react';
+import { User } from 'lucide-react';
 
 interface Props {
   className?: string;
@@ -52,22 +49,11 @@ export const Header: React.FC<Props> = (props) => {
             className="flex items-center gap-2 leading-none"
             variant="outline"
           >
-            <User size={14} strokeWidth={2} />
+            <User size={15} strokeWidth={2.5} />
             <span>Войти</span>
           </Button>
-          <Button className="group relative flex items-center gap-3.5 leading-none">
-            <b>520 ₽</b>
-            <span className="h-full w-[1px] bg-white/30" />
-            <div className="flex items-center gap-2 transition duration-300 group-hover:opacity-0">
-              <ShoppingCart size={16} strokeWidth={2} />
-              <b>3</b>
-            </div>
-            <ArrowRight
-              className="absolute right-5 -translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-              size={16}
-              strokeWidth={2}
-            />
-          </Button>
+
+          <CartButton />
         </div>
       </Container>
     </header>

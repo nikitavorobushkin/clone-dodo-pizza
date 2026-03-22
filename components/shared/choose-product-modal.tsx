@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import { ProductForm } from '@/components/shared';
+import { ProductFormContainer } from '@/components/shared';
 import { ProductWithDetails } from '@/components/shared/products-group-list';
 import { useRouter } from 'next/navigation';
 
@@ -35,10 +35,10 @@ export const ChooseProductModal: React.FC<Props> = (
         )}
       >
         <DialogTitle className="sr-only">
-          Choose product
+          Product modal
         </DialogTitle>
 
-        <ProductForm
+        <ProductFormContainer
           product={product}
           onSubmit={() => router.back()}
         />

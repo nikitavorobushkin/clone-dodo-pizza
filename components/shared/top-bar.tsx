@@ -6,10 +6,10 @@ import {
   SortPopup,
   Container,
 } from '@/components/shared';
-import { Category } from '@prisma/client';
+import { CategoryItem } from '@/components/shared/categories';
 
 interface Props {
-  categories: Category[];
+  categories: CategoryItem[];
   className?: string;
 }
 

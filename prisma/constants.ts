@@ -124,104 +124,101 @@ export const ingredients = [
 export const products = [
   {
     name: 'Омлет с ветчиной и грибами',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp',
+    description:
+      'Вкусный омлет с ветчиной и свежими грибами.',
     categoryId: 2,
   },
   {
     name: 'Омлет с пепперони',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE94ECF33B0C46BA410DEC1B1DD6F8.webp',
+    description:
+      'Омлет с ароматной пепперони и нежным сыром.',
     categoryId: 2,
   },
   {
-    name: 'Кофе Латте',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
-    categoryId: 5,
+    name: 'Молочный коктейль с печеньем Орео',
+    description:
+      'Как вкуснее есть печенье? Его лучше пить! Попробуйте молочный коктейль с мороженым и дробленым печеньем «Орео»',
+    categoryId: 2,
   },
   {
     name: 'Дэнвич ветчина и сыр',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.webp',
+    description:
+      'Свежий сэндвич с ветчиной, сыром и хрустящим хлебом.',
     categoryId: 3,
   },
   {
     name: 'Куриные наггетсы',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D618B5C7EC29350069AE9532C6E.webp',
+    description:
+      'Сочные наггетсы из куриного филе, идеально для перекуса.',
     categoryId: 3,
   },
   {
     name: 'Картофель из печи с соусом 🌱',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EED646A9CD324C962C6BEA78124F19.webp',
+    description: 'Запечённый картофель с фирменным соусом.',
     categoryId: 3,
   },
   {
     name: 'Додстер',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE796F96D11392A2F6DD73599921B9.webp',
+    description:
+      'Традиционный Додстер с начинкой по вашему вкусу.',
     categoryId: 3,
   },
   {
     name: 'Острый Додстер 🌶️🌶️',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE796FD3B594068F7A752DF8161D04.webp',
+    description:
+      'Острый Додстер с пикантной начинкой для любителей острого.',
     categoryId: 3,
   },
   {
-    name: 'Банановый молочный коктейль',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EEE20B8772A72A9B60CFB20012C185.webp',
+    name: 'Персиковый молочный коктейль',
+    description: 'Нежный молочный коктейль с бананом.',
     categoryId: 4,
   },
   {
     name: 'Карамельное яблоко молочный коктейль',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE79702E2A22E693D96133906FB1B8.webp',
+    description:
+      'Сладкий коктейль с карамельным яблоком и молоком.',
     categoryId: 4,
   },
   {
     name: 'Молочный коктейль с печеньем Орео',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE796FA1F50F8F8111A399E4C1A1E3.webp',
+    description:
+      'Кремовый коктейль с кусочками печенья Орео.',
     categoryId: 4,
   },
   {
-    name: 'Классический молочный коктейль 👶',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE796F93FB126693F96CB1D3E403FB.webp',
+    name: 'Персиковый молочный коктейль 👶',
+    description:
+      'Нежный коктейль с вкусом спелого персика.',
     categoryId: 4,
   },
   {
     name: 'Ирландский Капучино',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61999EBDA59C10E216430A6093.webp',
+    description:
+      'Ароматный капучино с ноткой ирландского вкуса.',
     categoryId: 5,
   },
   {
     name: 'Кофе Карамельный капучино',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61AED6B6D4BFDAD4E58D76CF56.webp',
+    description:
+      'Капучино с насыщенным карамельным вкусом.',
     categoryId: 5,
   },
   {
     name: 'Кофе Кокосовый латте',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61B19FA07090EE88B0ED347F42.webp',
+    description: 'Латте с нежным кокосовым ароматом.',
     categoryId: 5,
   },
   {
     name: 'Кофе Американо',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61B044583596548A59078BBD33.webp',
+    description:
+      'Классический американо с насыщенным вкусом кофе.',
     categoryId: 5,
   },
   {
     name: 'Кофе Латте',
-    imageUrl:
-      'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
+    description:
+      'Классический латте с нежной молочной пенкой.',
     categoryId: 5,
   },
 ];

@@ -3,25 +3,25 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-export type Variant = {
+export type Variant<ValueType> = {
   name: string;
-  value: string;
+  value: ValueType;
   disabled?: boolean;
 };
 
-interface Props {
-  items: readonly Variant[];
-  onClick?: (value: Variant['value']) => void;
-  value?: Variant['value'];
+interface Props<ValueType> {
+  items: readonly Variant<ValueType>[];
+  value: ValueType;
+  onClick?: (value: ValueType) => void;
   className?: string;
 }
 
-export const Variants: React.FC<Props> = ({
+export const Variants = <ValueType,>({
   items,
+  value,
   onClick,
   className,
-  value,
-}) => {
+}: Props<ValueType>) => {
   return (
     <div
       className={cn(
@@ -31,16 +31,18 @@ export const Variants: React.FC<Props> = ({
     >
       {items.map((item) => (
         <button
-          key={item.name}
-          onClick={() => onClick?.(item.value)}
           className={cn(
             'flex h-[30px] flex-1 cursor-pointer items-center justify-center rounded-3xl px-5 text-sm transition-all duration-400',
             {
-              'bg-white shadow': item.value === value,
-              'pointer-events-none text-gray-500 opacity-50':
+              'bg-white shadow':
+                item.value === value && items.length !== 1,
+              'cursor-not-allowed text-gray-500 opacity-50':
                 item.disabled,
             },
           )}
+          disabled={item.disabled}
+          onClick={() => onClick?.(item.value)}
+          key={String(item.value)}
         >
           {item.name}
         </button>

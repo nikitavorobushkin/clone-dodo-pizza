@@ -7,8 +7,12 @@ import { useCategoryStore } from '@/store/category';
 import { Category } from '@prisma/client';
 import { useWhyDidYouUpdate } from 'ahooks';
 
+export type CategoryItem = Category & {
+  disabled: boolean;
+};
+
 interface Props {
-  items: Category[];
+  items: CategoryItem[];
   className?: string;
 }
 
@@ -32,14 +36,16 @@ export const Categories: React.FC<Props> = (props) => {
         className,
       )}
     >
-      {items.map(({ name, id }) => (
+      {items.map(({ name, id, disabled }) => (
         <a
           className={cn(
             'flex h-11 items-center rounded-lg px-5 text-base font-semibold',
             activeId === id &&
               'text-primary bg-white shadow-md shadow-gray-200',
+            disabled &&
+              'cursor-not-allowed text-gray-500 opacity-50',
           )}
-          href={`#${slugify(name)}`}
+          href={disabled ? undefined : `#${slugify(name)}`}
           key={id}
         >
           {name}

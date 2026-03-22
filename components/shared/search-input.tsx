@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useClickAway, useDebounce } from 'react-use';
-import { CircleX, Search, X } from 'lucide-react';
+import { Search, XIcon } from 'lucide-react';
 
 import { Api } from '@/services/api-client';
 import { ProductWithItems } from '@/services/products';
@@ -77,7 +77,7 @@ export const SearchInput: React.FC<Props> = (props) => {
 
         {searchQuery && (
           <Button
-            className="absolute top-1/2 right-1 -translate-y-1/2 cursor-pointer text-gray-400 transition-colors duration-300 hover:text-black"
+            className="absolute top-0 right-1 cursor-pointer text-gray-400 transition-colors duration-300 hover:text-black"
             type="button"
             variant="link"
             size="icon"
@@ -85,7 +85,7 @@ export const SearchInput: React.FC<Props> = (props) => {
             aria-label="Reset search"
             onClick={() => setSearchQuery('')}
           >
-            <CircleX size={16} strokeWidth={2} />
+            <XIcon size={16} strokeWidth={2} />
           </Button>
         )}
 
@@ -105,7 +105,7 @@ export const SearchInput: React.FC<Props> = (props) => {
               >
                 <img
                   className="rounded-sm object-cover object-center"
-                  src={product.imageUrl}
+                  src={product.items[0].imageUrl}
                   width={32}
                   height={32}
                   alt={product.name}

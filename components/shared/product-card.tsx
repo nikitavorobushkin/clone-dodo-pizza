@@ -8,7 +8,7 @@ import { PlusIcon } from 'lucide-react';
 interface Props {
   id: number;
   title: string;
-  ingredients: string[];
+  description: string;
   price: number;
   imageUrl: string;
   className?: string;
@@ -18,23 +18,11 @@ export const ProductCard: React.FC<Props> = (props) => {
   const {
     className,
     title,
-    ingredients,
+    description,
     price,
     imageUrl,
     id,
   } = props;
-
-  const capitalize = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-
-  const description =
-    ingredients
-      .map((ingredient, index) =>
-        index === 0 ? capitalize(ingredient) : ingredient,
-      )
-      .join(', ') ||
-    'Горячий сытный омлет с поджаристой корочкой, ветчина, шампиньоны и моцарелла';
 
   return (
     <article className={cn('flex flex-col', className)}>
@@ -49,6 +37,7 @@ export const ProductCard: React.FC<Props> = (props) => {
             alt={title}
             width={212}
             height={212}
+            title={title}
           />
         </div>
 

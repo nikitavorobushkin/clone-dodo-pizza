@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import {
@@ -6,9 +8,10 @@ import {
 } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
+import { Loader } from 'lucide-react';
 
 const buttonVariants = cva(
-  'inline-flex items-center cursor-pointer justify-center whitespace-nowrap rounded-md active:translate-y-[1px] text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-md active:translate-y-[1px] text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:bg-gray-500',
   {
     variants: {
       variant: {
@@ -28,7 +31,7 @@ const buttonVariants = cva(
         default: 'h-10 px-4 py-2',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        icon: 'h-8 w-8',
       },
     },
     defaultVariants: {
@@ -43,6 +46,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<
@@ -50,18 +54,34 @@ const Button = React.forwardRef<
   ButtonProps
 >(
   (
-    { className, variant, size, asChild = false, ...props },
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      children,
+      disabled,
+      loading,
+      ...props
+    },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
+        disabled={disabled || loading}
         className={cn(
           buttonVariants({ variant, size, className }),
         )}
         ref={ref}
         {...props}
-      />
+      >
+        {!loading ? (
+          children
+        ) : (
+          <Loader className="h-5 w-5 animate-spin" />
+        )}
+      </Comp>
     );
   },
 );

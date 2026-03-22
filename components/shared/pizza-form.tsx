@@ -1,14 +1,15 @@
 import React from 'react';
 import {
-  ProductImage,
+  ExtrasGrid,
+  IngredientsList,
+  PizzaVariants,
   Title,
-  Variants,
+  PizzaImage,
 } from '@/components/shared';
 import { ProductWithDetails } from './products-group-list';
 import { Button } from '@/components/ui';
-import { formatSize } from '@/lib/format-size';
-import { useProductOptions } from '@/hooks';
-import { getProductDetails } from '@/lib';
+import { usePizzaOptions } from '@/hooks';
+import { getPizzaDetails } from '@/lib';
 
 interface Props {
   product: ProductWithDetails;
@@ -16,18 +17,28 @@ interface Props {
   loading: boolean;
 }
 
-export const ProductForm: React.FC<Props> = (props) => {
+export const PizzaForm: React.FC<Props> = (props) => {
   const { product, onSubmit, loading } = props;
 
   const {
-    unitValue,
-    setUnitValue,
-    availableValues,
+    type,
+    size,
     selectedItem,
-  } = useProductOptions(product.items);
+    optionalIngredients,
+    extraIngredients,
+    availableSizes,
+    availableTypes,
+    setSize,
+    toggleOptional,
+    toggleExtra,
+    onTypeChange,
+  } = usePizzaOptions(product.items);
 
-  const { textDetails, totalPrice } =
-    getProductDetails(selectedItem);
+  const { textDetails, totalPrice } = getPizzaDetails(
+    selectedItem,
+    product.productIngredients,
+    extraIngredients,
+  );
 
   const handleClickAdd = () => {
     onSubmit?.();
@@ -35,10 +46,11 @@ export const ProductForm: React.FC<Props> = (props) => {
 
   return (
     <div className="grid max-h-[670px] w-full flex-1 grid-cols-[1.3fr_1fr] items-center">
-      <ProductImage
+      <PizzaImage
         className="px-6"
-        imageUrl={selectedItem.imageUrl}
+        imageUrl={selectedItem!.imageUrl}
         alt={product.name}
+        size={size as 20 | 30 | 40}
       />
 
       <div className="flex flex-col gap-3 rounded-md bg-[#fcfcfc]">
@@ -53,21 +65,25 @@ export const ProductForm: React.FC<Props> = (props) => {
             {textDetails}
           </p>
 
-          <div className="mt-3 text-sm">
-            <p>{product.description}</p>
-          </div>
+          <IngredientsList
+            ingredients={product.productIngredients}
+            optionalSet={optionalIngredients}
+            toggleOptional={toggleOptional}
+          />
 
-          <Variants
-            className="mt-5"
-            items={availableValues.map((item) => ({
-              ...item,
-              name: formatSize(
-                item.value,
-                selectedItem.unit,
-              ),
-            }))}
-            value={unitValue}
-            onClick={setUnitValue}
+          <PizzaVariants
+            sizes={availableSizes}
+            typeOptions={availableTypes}
+            size={size}
+            type={type}
+            setSize={setSize}
+            setType={onTypeChange}
+          />
+
+          <ExtrasGrid
+            ingredients={product.productIngredients}
+            extraSet={extraIngredients}
+            toggleExtra={toggleExtra}
           />
         </div>
         <div className="px-7 pt-5 pb-7">

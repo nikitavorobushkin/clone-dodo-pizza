@@ -9,26 +9,24 @@ import {
 import { Title } from '@/components/shared/title';
 import { Input, Skeleton } from '@/components/ui';
 
-type Item = FilterCheckboxProps;
-
-interface Props {
+interface Props<ValueType> {
   title: string;
   className?: string;
-  items: Item[];
+  items: FilterCheckboxProps<ValueType>[];
   limit?: number;
   onChange?: (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => void;
   searchInputPlaceholder?: string;
-  onClickCheckbox?: (id: number) => void;
+  onClickCheckbox?: (value: ValueType) => void;
   defaultValue?: string[];
-  selected?: Set<number>;
+  selected?: Set<ValueType>;
   name: string;
   loading?: boolean;
 }
 
-export const CheckboxFiltersGroup: React.FC<Props> = (
-  props,
+export const CheckboxFiltersGroup = <ValueType,>(
+  props: Props<ValueType>,
 ) => {
   const {
     title,
